@@ -27,10 +27,27 @@ class MainActivity : AppCompatActivity() {
         val repository = Repository()
         val viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
-        viewModel.getCustomPosts(5,"id", "desc")
-        viewModel.myCustomPosts.observe(this, Observer { response ->
+
+
+
+//        I met the below lines of code earlier here
+//        viewModel.getCustomPosts(5,"id", "desc")
+//        viewModel.myCustomPosts.observe(this, Observer { response ->
+    //        if(response.isSuccessful){
+    //            response.body()?.let { myAdapter.setData(it) }
+    //        }else {
+    //            Toast.makeText(this, response.code(), Toast.LENGTH_SHORT).show()
+    //        }
+    //    })
+//        and the above code was the previous line of code in use for what's now below I changed to this present one
+
+        val myPost = Post(2, 2, "Lawrence", "Electrical Engineering")
+        viewModel.pushPost(myPost)
+        viewModel.myResponse.observe(this, Observer { response ->
             if(response.isSuccessful){
-                response.body()?.let { myAdapter.setData(it) }
+                Log.d("Main", response.body().toString())
+                Log.d("Main", response.body().toString())
+                Log.d("Main", response.message())
             }else {
                 Toast.makeText(this, response.code(), Toast.LENGTH_SHORT).show()
             }

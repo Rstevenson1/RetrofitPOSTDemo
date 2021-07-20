@@ -15,6 +15,13 @@ class MainViewModel(private val repository: Repository): ViewModel() {
     var myCustomPosts: MutableLiveData<Response<List<Post>>> = MutableLiveData()
     var myCustomPosts2: MutableLiveData<Response<List<Post>>> = MutableLiveData()
 
+    fun pushPost(post: Post) {
+        viewModelScope.launch {
+            val response: Response<Post> = repository.pushPost(post)
+            myResponse.value = response
+        }
+    }
+
     fun getPost(){
         viewModelScope.launch {
             val response = repository.getPost()
